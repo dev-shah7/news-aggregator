@@ -5,7 +5,7 @@ import Logo from '../assets/app-logo.png';
 
 const linksData = [
   { to: '/', text: 'Dashboard' },
-  { to: '/blogs', text: 'Blogs' },
+  { to: '/blogs', text: 'News Feed' },
 ];
 
 const Header = () => {

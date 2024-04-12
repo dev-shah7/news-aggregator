@@ -8,8 +8,15 @@ import {
 export const fetchPosts = createAsyncThunk(
   'fetchPosts',
   async ({ query, pageSize, page, fromDate, toDate }) => {
+    let url = 'https://newsapi.org/v2/everything?';
+
+    if (query) {
+      url += `q=${encodeURIComponent(query)}&`;
+    } else {
+      url += `sources=bbc-news,cnn,espn`;
+    }
+
     const queryParams = new URLSearchParams({
-      q: query,
       from: fromDate,
       to: toDate,
       pageSize: pageSize.toString(),
@@ -17,7 +24,8 @@ export const fetchPosts = createAsyncThunk(
       apiKey: 'ab724326742f408cb0ac5211d1b30ce5',
     });
 
-    const url = `https://newsapi.org/v2/everything?${queryParams}`;
+    // Append the rest of the query parameters to the URL
+    url += queryParams.toString();
 
     const response = await fetch(url);
     const data = await response.json();
@@ -42,16 +50,16 @@ export const fetchTrendingPosts = createAsyncThunk(
     return data;
   }
 );
-
 export const fetchNYTData = createAsyncThunk(
   'fetchNYTArticles',
-  async ({ page }) => {
-    const queryParams = new URLSearchParams({
-      page: page,
-      'api-key': 'nLFuiowX7JG4RuPmBabZdVdyqGkD3y3G',
-    });
+  async ({ page, query }) => {
+    let url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?';
 
-    const url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?${queryParams}`;
+    if (query) {
+      url += `q=${encodeURIComponent(query)}&`;
+    }
+
+    url += `page=${page}&api-key=nLFuiowX7JG4RuPmBabZdVdyqGkD3y3G`;
 
     const response = await fetch(url);
     const data = await response.json();
@@ -66,15 +74,14 @@ export const fetchNYTData = createAsyncThunk(
 
 export const fetchGuardianData = createAsyncThunk(
   'fetchGuardianData',
-  async ({ page }) => {
-    const queryParams = new URLSearchParams({
-      page: page,
-      'show-fields': 'thumbnail',
-      'show-tags': 'contributor',
-      'api-key': 'e29b255d-f750-46ec-8cb0-24685a23e1aa',
-    });
+  async ({ page, query }) => {
+    let url = 'http://content.guardianapis.com/search?';
 
-    const url = `http://content.guardianapis.com/search?${queryParams}`;
+    if (query) {
+      url += `q=${encodeURIComponent(query)}&`;
+    }
+
+    url += `page=${page}&show-fields=thumbnail&show-tags=contributor&api-key=e29b255d-f750-46ec-8cb0-24685a23e1aa`;
 
     const response = await fetch(url);
     const data = await response.json();

@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
+import Search from './Search';
 
 const NewsSourceSection = ({
   selectedNewsSource,
   handleSourceChange,
   setIsFilterModalOpen,
+  handleSubmit,
+  searchQuery,
+  handleSearchQueryChange,
 }) => {
   const sources = [
     { id: 'news', text: 'NEWS API' },
@@ -12,12 +16,12 @@ const NewsSourceSection = ({
   ];
 
   return (
-    <div className='flex flex-wrap items-center justify-between border-b-2 p-4'>
+    <div className='flex flex-col lg:flex-row flex-wrap justify-between border-b-2 p-4 gap-6'>
       <div className='flex flex-wrap items-center text-grey-900 text-semibold'>
         {sources.map((source) => (
           <button
             key={source.id}
-            className={`p-3 mr-2 space-x-16 px-4 rounded-lg ${
+            className={`space-x-14 px-4 py-2 rounded-lg ${
               selectedNewsSource === source.id
                 ? 'bg-[#DDDBCB] text-slate-8800'
                 : ''
@@ -28,8 +32,13 @@ const NewsSourceSection = ({
           </button>
         ))}
       </div>
+      <div className='flex justify-between items-start'>
+        <Search
+          handleSubmit={handleSubmit}
+          searchQuery={searchQuery}
+          handleSearchQueryChange={handleSearchQueryChange}
+        />
 
-      <div className='relative'>
         <button
           id='dropdownDefaultButton'
           data-dropdown-toggle='dropdown'
@@ -61,8 +70,11 @@ const NewsSourceSection = ({
 
 NewsSourceSection.propTypes = {
   selectedNewsSource: PropTypes.string.isRequired,
+  searchQuery: PropTypes.string.isRequired,
   handleSourceChange: PropTypes.func.isRequired,
   setIsFilterModalOpen: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleSearchQueryChange: PropTypes.func.isRequired,
 };
 
 export default NewsSourceSection;
