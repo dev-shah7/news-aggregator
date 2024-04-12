@@ -5,14 +5,14 @@ import Pagination from '../components/Pagination';
 import NewsSourceSection from '../components/NewsSourceSection';
 import Sidebar from '../components/Sidebar';
 import { useDispatch, useSelector } from 'react-redux';
+import FilterModal from '../components/FilterModal';
+import Spinner from '../components/Spinner';
 import {
   fetchGuardianData,
   fetchNYTData,
   fetchPosts,
   fetchTrendingPosts,
-} from '../../redux/features/postSlice';
-import FilterModal from '../components/FilterModal';
-import Spinner from '../components/Spinner';
+} from '../../redux/actions/postAction';
 
 const Blogs = () => {
   const dispatch = useDispatch();
@@ -23,12 +23,13 @@ const Blogs = () => {
   } = useSelector((state) => state.posts);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedNewsSource, setSelectedNewsSource] = useState('news');
+  const [selectedNewsSource, setSelectedNewsSource] = useState('nyt');
   const [activeNewsSource, setActiveNewsSource] = useState(null);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [selectedSources, setSelectedSources] = useState([]);
   const [keyword, setKeyword] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -38,7 +39,6 @@ const Blogs = () => {
     dispatch(fetchTrendingPosts());
   }, [dispatch]);
 
-  console.log('Trending Posts: ', trendingPosts);
   useEffect(() => {
     if (selectedNewsSource == 'nyt') {
       dispatch(fetchNYTData({ page: currentPage }));
@@ -49,31 +49,56 @@ const Blogs = () => {
     }
   }, [dispatch, currentPage, selectedNewsSource]);
 
-  const handleFilterSubmit = (startDate, endDate) => {
+  const handleFilterSubmit = () => {
     const fromDate = startDate ? startDate.toISOString().split('T')[0] : '';
     const toDate = endDate ? endDate.toISOString().split('T')[0] : '';
-    console.log(fromDate, toDate);
 
-    dispatch(
-      fetchPosts({
-        query: keyword,
-        pageSize: pageSize,
-        page: currentPage,
-        fromDate,
-        toDate,
-        selectedCategory,
-      })
-    );
+    if (selectedNewsSource == 'nyt') {
+      dispatch(
+        fetchNYTData({
+          page: currentPage,
+          category: selectedCategory,
+          fromDate,
+          toDate,
+          selectedSources,
+        })
+      );
+    } else if (selectedNewsSource == 'guardian') {
+      dispatch(
+        fetchGuardianData({
+          page: currentPage,
+          category: selectedCategory,
+          fromDate,
+          toDate,
+          selectedSources,
+        })
+      );
+    } else {
+      dispatch(
+        fetchPosts({
+          query: keyword,
+          pageSize: pageSize,
+          page: currentPage,
+          fromDate,
+          toDate,
+          category: selectedCategory,
+          selectedSources,
+        })
+      );
+    }
   };
 
-  console.log('search query: ', searchQuery);
   const handlePageChange = (page) => {
     setCurrentPage(page);
     setActiveNewsSource('a');
   };
 
-  const handleCategoryChange = (value) => {
-    setSelectedCategory(value);
+  const handleCategoryChange = (selectedCategories) => {
+    setSelectedCategory(selectedCategories);
+  };
+
+  const handleSourceFilterChange = (selectedSources) => {
+    setSelectedSources(selectedSources);
   };
 
   const handleKeywordChange = (value) => {
@@ -109,6 +134,7 @@ const Blogs = () => {
       setCurrentPage(1);
     }
   };
+
   return (
     <>
       {isFilterModalOpen && (
@@ -122,7 +148,9 @@ const Blogs = () => {
           selectedCategory={selectedCategory}
           handleCategoryChange={handleCategoryChange}
           keyword={keyword}
+          selectedSources={selectedSources}
           handleKeywordChange={handleKeywordChange}
+          handleSourceFilterChange={handleSourceFilterChange}
         />
       )}
       <Banner heading='News Feed' />

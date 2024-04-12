@@ -34,11 +34,11 @@ export function normalizeGuardianData(apiResponse) {
   return {
     totalResults: apiResponse.response.total,
     articles: apiResponse.response.results.map((article) => ({
-      title: article.webTitle,
-      urlToImage: article.fields.thumbnail || null,
+      title: article?.webTitle || null,
+      urlToImage: article?.fields?.thumbnail || null,
       author: article.tags.length > 0 ? article.tags[0].webTitle : null,
-      publishedAt: article.webPublicationDate,
-      url: article.webUrl,
+      publishedAt: article?.webPublicationDate || null,
+      url: article?.webUrl || null,
     })),
   };
 }

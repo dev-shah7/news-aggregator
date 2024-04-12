@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../assets/app-logo.png';
 
 const linksData = [
-  { to: '/', text: 'Dashboard' },
+  { to: '/', text: 'Home' },
   { to: '/blogs', text: 'News Feed' },
 ];
 
@@ -22,11 +22,13 @@ const Header = () => {
           <div className='flex h-16 items-center justify-between'>
             <div className='flex items-center'>
               <div className='flex-shrink-0'>
-                <img
-                  className='h-[120px] w-[150px]'
-                  src={Logo}
-                  alt='Your Company'
-                />
+                <Link to='/'>
+                  <img
+                    className='h-[120px] w-[150px]'
+                    src={Logo}
+                    alt='Your Company'
+                  />
+                </Link>
               </div>
               <div className='hidden md:block'>
                 <div className='ml-10 flex items-baseline space-x-4'>

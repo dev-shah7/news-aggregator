@@ -194,3 +194,64 @@ export const allBlogs = [
       'During the Asian trading session on Monday, Bitcoin (BTC) soared past $71,000 for the first time in history.\r\nThis surge comes on the heels of the U.S.’s approval of spot Bitcoin spot exchange-traded… [+2051 chars]',
   },
 ];
+
+export const filterCategories = [
+  {
+    id: 'business',
+    text: 'Business',
+  },
+  {
+    id: 'entertainment',
+    text: 'Entertainment',
+  },
+  {
+    id: 'general',
+    text: 'General',
+  },
+  {
+    id: 'health',
+    text: 'Health',
+  },
+  {
+    id: 'science',
+    text: 'Science',
+  },
+  {
+    id: 'sports',
+    text: 'Sports',
+  },
+  {
+    id: 'technology',
+    text: 'Technology',
+  },
+];
+
+const filterSources = [
+  { id: 'bloomberg', text: 'Bloomberg' },
+  { id: 'business-insider', text: 'Business Insider' },
+  { id: 'financial-post', text: 'Financial Post' },
+  { id: 'the-wall-street-journal', text: 'The Wall Street Journal' },
+  { id: 'buzzfeed', text: 'BuzzFeed' },
+  { id: 'entertainment-weekly', text: 'Entertainment Weekly' },
+  { id: 'mashable', text: 'Mashable' },
+  { id: 'the-lad-bible', text: 'The Lad Bible' },
+  { id: 'abc-news', text: 'ABC News' },
+  { id: 'bbc-news', text: 'BBC News' },
+  { id: 'cbs-news', text: 'CBS News' },
+  { id: 'google-news', text: 'Google News' },
+  { id: 'medical-news-today', text: 'Medical News Today' },
+  { id: 'national-geographic', text: 'National Geographic' },
+  { id: 'new-scientist', text: 'New Scientist' },
+  { id: 'the-verge', text: 'The Verge' },
+  { id: 'scientific-american', text: 'Scientific American' },
+  { id: 'bbc-sport', text: 'BBC Sport' },
+  { id: 'espn', text: 'ESPN' },
+  { id: 'nfl-news', text: 'NFL News' },
+  { id: 'the-sport-bible', text: 'The Sport Bible' },
+  { id: 'ars-technica', text: 'Ars Technica' },
+  { id: 'engadget', text: 'Engadget' },
+  { id: 'hacker-news', text: 'Hacker News' },
+  { id: 'techcrunch', text: 'TechCrunch' },
+];
+
+export { filterSources };
