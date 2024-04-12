@@ -17,7 +17,7 @@ export const fetchPosts = createAsyncThunk(
     selectedSources,
   }) => {
     try {
-      let url = 'https://newsapi.org/v2/everything?';
+      let url = `${import.meta.env.VITE_NEWS_API_URL}?`;
 
       if (selectedSources) {
         const selectedSourcesString = selectedSources.join(',');
@@ -111,7 +111,7 @@ export const fetchNYTData = createAsyncThunk(
   'fetchNYTArticles',
   async ({ page, query, category, fromDate, toDate, selectedSources }) => {
     try {
-      let url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?';
+      let url = `${import.meta.env.VITE_NYT_API_URL}?`;
 
       if (query) {
         url += `q=${encodeURIComponent(query)}&`;
@@ -154,7 +154,7 @@ export const fetchGuardianData = createAsyncThunk(
   'fetchGuardianData',
   async ({ page, query, category, fromDate, toDate, selectedSources }) => {
     try {
-      let url = 'http://content.guardianapis.com/search?';
+      let url = `${import.meta.env.VITE_GUARDIAN_API_URL}?`;
 
       if (query) {
         url += `q=${encodeURIComponent(query)}&`;
