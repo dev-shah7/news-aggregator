@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   app:
-    container_name: news-aggregator-1
+    container_name: news-aggregator-app-1
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '5175:5175'
+      - '5176:5176'

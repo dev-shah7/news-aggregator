@@ -1,4 +1,4 @@
-FROM node
+FROM node:18-alpine as BUILD_IMAGE
 
 WORKDIR /app
 
@@ -7,6 +7,7 @@ RUN npm i
 
 COPY . .
 
-EXPOSE 5175
+RUN npm run build
+EXPOSE 5176
 
 CMD ["npm", "run", "dev"]
