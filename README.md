@@ -2,6 +2,15 @@
 
 This project is a news aggregator that fetches data from three different APIs: NewsAPI, New York Times, and The Guardian. It utilizes Redux Toolkit for state management, React for the front-end, and Vite for fast development and server.
 
+## Technology Stack
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) 
+
+| Tools/Technologies      | Description |
+| :---        |:----   |
+| React   | Version 18.2.0          |
+| Redux | Version 4.2.1 |
+| Redux Toolkit | Version ^2.2.3 |
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
