@@ -41,6 +41,17 @@ Before running this application, ensure you have the following prerequisites ins
 
 ## How to Run
 
+### Environment Variables
+
+    Create a `.env.local` file in the root directory of the project with the following variables:
+    
+    VITE_NEWS_API_URL=
+    VITE_GUARDIAN_API_URL=
+    VITE_NYT_API_URL=
+    VITE_NEWS_API_KEY=your_news_api_key
+    VITE_GUARDIAN_API_KEY=your_guardian_api_key
+    VITE_NYT_API_KEY=your_nyt_api_key
+    
 ### Running with Docker
 
 1. Clone the repository to your local machine:
@@ -49,7 +60,16 @@ Before running this application, ensure you have the following prerequisites ins
 
    # Navigate into the project directory
    cd news-aggregator
-   docker-compose up --build
+   # Build using the following command
+   docker compose build
+   # up container using the following command
+   docker compose up -d
+
+   # Visit the Url
+    http://localhost:5176/
+
+   # To check container logs RUN:
+   docker logs news-aggregator-app-1 -f
 
 ## Running without Docker
 
